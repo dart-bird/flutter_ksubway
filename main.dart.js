@@ -57870,7 +57870,7 @@ n2(a){return this.a_7(a)},
 a_7(a){var s=0,r=A.S(t.wP),q,p
 var $async$n2=A.T(function(b,c){if(b===1)return A.P(c,r)
 while(true)switch(s){case 0:s=3
-return A.O(A.avq(A.qm("https://corsproxy.me/https://smss.seoulmetro.co.kr/api/3010.do?lineNumCd="+a,0,null)),$async$n2)
+return A.O(A.avq(A.qm("https://corsorigin.me/https://smss.seoulmetro.co.kr/api/3010.do?lineNumCd="+a,0,null)),$async$n2)
 case 3:p=c
 if(p.b===200){q=A.ar7(B.af.cu(0,A.auE(A.at0(p.e).c.a.j(0,"charset")).cu(0,p.w)))
 s=1
