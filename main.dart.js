@@ -57871,7 +57871,7 @@ a_7(a){var s=0,r=A.S(t.wP),q,p,o
 var $async$n2=A.T(function(b,c){if(b===1)return A.P(c,r)
 while(true)switch(s){case 0:p=t.N
 s=3
-return A.O(A.avq(A.qm("https://smss.seoulmetro.co.kr/api/3010.do?lineNumCd="+a,0,null),A.aO(["Accept","application/json","Access-Control_Allow_Origin","*"],p,p)),$async$n2)
+return A.O(A.avq(A.qm("https://smss.seoulmetro.co.kr/api/3010.do?lineNumCd="+a,0,null),A.aO(["Content-Type","application/json","Access-Control_Allow_Origin","*"],p,p)),$async$n2)
 case 3:o=c
 if(o.b===200){q=A.ar7(B.af.cu(0,A.auE(A.at0(o.e).c.a.j(0,"charset")).cu(0,o.w)))
 s=1
