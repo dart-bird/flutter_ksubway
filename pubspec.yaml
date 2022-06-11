@@ -43,4 +43,4 @@ flutter:
         - asset: fonts/GimpoGothicBold.otf
         - asset: fonts/GimpoGothicRegular.otf
   assets:
-  - data/ksubwayApi/demo.json
+  - data/exp_ksubway_api/demo.json

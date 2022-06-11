@@ -1,13 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_ksubway/components/AppTitle.dart';
-import 'package:flutter_ksubway/components/SubwayInfo.dart';
-import 'package:flutter_ksubway/components/SubwayLineButton.dart';
+import 'package:flutter_ksubway/components/app_title.dart';
+import 'package:flutter_ksubway/components/subway_info.dart';
+import 'package:flutter_ksubway/components/subway_line_button.dart';
 import 'package:flutter_ksubway/main.dart';
-import 'package:flutter_ksubway/models/subwaydata.dart';
-import 'package:flutter_ksubway/services/ThemePreference.dart';
-import 'package:flutter_ksubway/services/subwayApi.dart';
+import 'package:flutter_ksubway/models/exp_ksubway_info.dart';
+import 'package:flutter_ksubway/services/theme_preference.dart';
+import 'package:flutter_ksubway/services/exp_ksubway_api.dart';
 import 'package:flutter_ksubway/style/subwayStyles.dart';
 import 'package:flutter_ksubway/style/textStyles.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -29,8 +27,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final subwayInfoScrollController = ScrollController();
   final subwayLineScrollController = ScrollController();
   int lineNumPageIndex = 0;
-  SubwayApi subwayApi = SubwayApi();
-  Subwaydata subwaydata = Subwaydata();
+  ExpksubwayApi expksubwayApi = ExpksubwayApi();
+  ExpksubwayInfo expksubwayInfo = ExpksubwayInfo();
   List<TtcVOList> ttcVOList = [];
   void updateTheme() async {
     bool isDarkTheme = await themePreference.getTheme();
@@ -39,15 +37,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   void fetchAll() async {
-    subwaydata = await subwayApi.fetchSubwaydata("1");
-    ttcVOList = subwaydata.ttcVOList ?? [];
+    expksubwayInfo = await expksubwayApi.fetchExpksubwayInfo("1");
+    ttcVOList = expksubwayInfo.ttcVOList ?? [];
     ttcVOList.sort(((a, b) => a.trainY!.compareTo(b.trainY!)));
     setState(() {});
   }
 
-  void updateSubwaydata(String lineNumCd) async {
-    subwaydata = await subwayApi.fetchSubwaydata(lineNumCd);
-    ttcVOList = subwaydata.ttcVOList ?? [];
+  void updateExpksubwayInfo(String lineNumCd) async {
+    expksubwayInfo = await expksubwayApi.fetchExpksubwayInfo(lineNumCd);
+    ttcVOList = expksubwayInfo.ttcVOList ?? [];
     ttcVOList.sort(((a, b) => a.trainY!.compareTo(b.trainY!)));
     setState(() {});
   }
@@ -133,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         return GestureDetector(
                           onTap: () {
                             lineNumPageIndex = index;
-                            updateSubwaydata(lineNumCd[index]);
+                            updateExpksubwayInfo(lineNumCd[index]);
                           },
                           onTapDown: _onTapDown,
                           onTapUp: _onTapUp,

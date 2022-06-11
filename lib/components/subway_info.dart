@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ksubway/main.dart';
-import 'package:flutter_ksubway/models/subwaydata.dart';
+import 'package:flutter_ksubway/models/exp_ksubway_info.dart';
 import 'package:flutter_ksubway/style/textStyles.dart';
 import 'package:marquee/marquee.dart';
 
