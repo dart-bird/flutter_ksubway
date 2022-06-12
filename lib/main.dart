@@ -1,24 +1,41 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ksubway/screens/homescreen.dart';
+import 'package:flutter_ksubway/config/routes.dart';
+import 'package:flutter_ksubway/preferences/theme_preference.dart';
+import 'package:flutter_ksubway/style/theme_styles.dart';
+import 'config/application.dart';
 
-void main() {
+void main() async {
+  final themePreference = ThemePreference();
+  bool isDarkTheme = await themePreference.getTheme();
+  MyApp.themeNotifier.value = isDarkTheme == true ? ThemeMode.dark : ThemeMode.light;
+
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
   static final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.light);
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  _MyAppState() {
+    final router = FluroRouter();
+    Routes.configureRoutes(router);
+    Application.router = router;
+  }
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<ThemeMode>(
-      valueListenable: themeNotifier,
+      valueListenable: MyApp.themeNotifier,
       builder: (_, ThemeMode currentMode, __) {
         return MaterialApp(
           title: 'K-SUBWAY',
-          darkTheme: ThemeData.dark(),
+          darkTheme: darkTheme,
           themeMode: currentMode,
-          home: const HomeScreen(),
+          onGenerateRoute: Application.router.generator,
         );
       },
     );

@@ -1,25 +1,25 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ksubway/components/app_title.dart';
 import 'package:flutter_ksubway/components/subway_info.dart';
 import 'package:flutter_ksubway/components/subway_line_button.dart';
 import 'package:flutter_ksubway/main.dart';
 import 'package:flutter_ksubway/models/exp_ksubway_info.dart';
-import 'package:flutter_ksubway/services/theme_preference.dart';
+import 'package:flutter_ksubway/preferences/theme_preference.dart';
 import 'package:flutter_ksubway/services/exp_ksubway_api.dart';
 import 'package:flutter_ksubway/style/subwayStyles.dart';
 import 'package:flutter_ksubway/style/textStyles.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class ExpScreen extends StatefulWidget {
+  const ExpScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<ExpScreen> createState() => _ExpScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  final themePreference = ThemePreference();
+class _ExpScreenState extends State<ExpScreen> with TickerProviderStateMixin {
   final List<String> lineNumCd = <String>['1', '2', '3', '4', '5', '6', '7', '8', '9', 'SU', 'K', 'KK', 'G'];
   final List<String> lineNumTitles = <String>['1 호선', '2 호선', '3 호선', '4 호선', '5 호선', '6 호선', '7 호선', '8 호선', '9 호선', '분당선', '경의중앙선', '경강선', '경춘선'];
 
@@ -30,11 +30,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   ExpksubwayApi expksubwayApi = ExpksubwayApi();
   ExpksubwayInfo expksubwayInfo = ExpksubwayInfo();
   List<TtcVOList> ttcVOList = [];
-  void updateTheme() async {
-    bool isDarkTheme = await themePreference.getTheme();
-    MyApp.themeNotifier.value = isDarkTheme == true ? ThemeMode.dark : ThemeMode.light;
-    setState(() {});
-  }
 
   void fetchAll() async {
     expksubwayInfo = await expksubwayApi.fetchExpksubwayInfo("1");
@@ -70,7 +65,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       });
       animationControllerList.add(_animationController);
     }
-    updateTheme();
     fetchAll();
   }
 
@@ -80,6 +74,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       body: SafeArea(
         child: Column(
           children: [
+            const CupertinoNavigationBar(
+              previousPageTitle: 'back',
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Row(
@@ -97,19 +94,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     icon: const FaIcon(FontAwesomeIcons.github),
                   ),
                   const AppTitle(title: 'K - SUBWAY Fighter'),
-                  IconButton(
-                    padding: EdgeInsets.zero,
-                    onPressed: () async {
-                      setState(() {});
-                      themePreference.setDarkTheme(MyApp.themeNotifier.value == ThemeMode.light);
-                      MyApp.themeNotifier.value = MyApp.themeNotifier.value == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
-                    },
-                    icon: Icon(MyApp.themeNotifier.value == ThemeMode.light ? Icons.dark_mode : Icons.light_mode),
-                  ),
                 ],
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             // -- content
             Expanded(
               child: Row(

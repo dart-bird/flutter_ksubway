@@ -1,12 +1,14 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_ksubway/models/exp_ksubway_info.dart';
+import 'package:flutter_ksubway/preferences/exp_api_preference.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ExpksubwayApi {
   Future<ExpksubwayInfo> fetchExpksubwayInfo(String lineNumCd) async {
-    String _uri = const String.fromEnvironment('ksubwayAPI');
-    if (_uri.isEmpty) {
+    final expApiPreference = ExpApiPreference();
+    String _uri = await expApiPreference.getApiEndpoint();
+    if (_uri == "demo") {
       String data = await rootBundle.loadString('data/exp_ksubway_api/demo.json');
       return ExpksubwayInfo.fromJson(json.decode(data)[lineNumCd]);
     }
