@@ -142,28 +142,6 @@ class _ExpScreenState extends State<ExpScreen> with TickerProviderStateMixin {
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Divider(thickness: 0.2, color: Colors.grey),
-            ),
-            SizedBox(
-              height: 50,
-              child: Column(
-                children: [
-                  const Text(
-                    'Created by dart-bird',
-                    style: textStyleFooter,
-                  ),
-                  OutlinedButton(
-                    onPressed: () {
-                      showLicensePage(context: context);
-                    },
-                    child: const Text("License", style: textStyleFooter),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 8),
           ],
         ),
       ),

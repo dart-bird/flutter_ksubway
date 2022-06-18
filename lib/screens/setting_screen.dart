@@ -81,6 +81,30 @@ class _SettingScreenState extends State<SettingScreen> {
               icon: Icon(MyApp.themeNotifier.value == ThemeMode.light ? Icons.dark_mode : Icons.light_mode),
             ),
           ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: Divider(thickness: 0.2, color: Colors.grey),
+          ),
+          const Spacer(),
+          Container(
+            margin: const EdgeInsets.only(bottom: 8),
+            height: 50,
+            child: Column(
+              children: [
+                const Text(
+                  'Created by dart-bird',
+                  style: textStyleFooter,
+                ),
+                const SizedBox(height: 5),
+                OutlinedButton(
+                  onPressed: () {
+                    showLicensePage(context: context);
+                  },
+                  child: const Text("License", style: textStyleFooter),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
