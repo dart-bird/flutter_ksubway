@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ksubway/main.dart';
+import 'package:flutter_ksubway/models/ksubway_seoulstations.dart';
 import 'package:flutter_ksubway/preferences/exp_api_preference.dart';
 import 'package:flutter_ksubway/preferences/theme_preference.dart';
+import 'package:flutter_ksubway/services/ksubway_api.dart';
 import 'package:flutter_ksubway/style/textStyles.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -17,7 +21,12 @@ class _SettingScreenState extends State<SettingScreen> {
   final expApiPreference = ExpApiPreference();
   final themePreference = ThemePreference();
   String expApiEndpoint = "";
+
   void restoreSettings() async {
+    KsubwaySeoulstations ksubwaySeoulstations = await KsubwayApi.fetchKsubwayStations();
+    for (var ksubwaySeoulstation in ksubwaySeoulstations.stationList!) {
+      print(ksubwaySeoulstation.statnNm);
+    }
     expApiEndpoint = await expApiPreference.getApiEndpoint();
     setState(() {});
   }

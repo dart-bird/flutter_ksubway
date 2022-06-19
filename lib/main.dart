@@ -6,6 +6,7 @@ import 'package:flutter_ksubway/style/theme_styles.dart';
 import 'config/application.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   final themePreference = ThemePreference();
   bool isDarkTheme = await themePreference.getTheme();
   MyApp.themeNotifier.value = isDarkTheme == true ? ThemeMode.dark : ThemeMode.light;

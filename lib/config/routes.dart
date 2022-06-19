@@ -7,7 +7,7 @@ class Routes {
   static String root = "/";
   static String expScreen = "/exp";
   static String settingScreen = "/setting";
-
+  static String arrinfoScreen = "/arrinfo/:stationName";
   static void configureRoutes(FluroRouter router) {
     router.notFoundHandler = Handler(handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
       return const NotFoundScreen();
@@ -15,5 +15,6 @@ class Routes {
     router.define(root, handler: rootHandler);
     router.define(expScreen, handler: expScreenHandler);
     router.define(settingScreen, handler: settingScreenHandler);
+    router.define(arrinfoScreen, handler: arrinfoScreenHandler);
   }
 }
