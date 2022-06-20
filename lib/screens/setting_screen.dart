@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ksubway/main.dart';
 import 'package:flutter_ksubway/models/ksubway_seoulstations.dart';
 import 'package:flutter_ksubway/preferences/exp_api_preference.dart';
+import 'package:flutter_ksubway/preferences/ksubway_stations_preference.dart';
 import 'package:flutter_ksubway/preferences/theme_preference.dart';
 import 'package:flutter_ksubway/services/ksubway_api.dart';
 import 'package:flutter_ksubway/style/textStyles.dart';
@@ -17,16 +18,20 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  final KsubwayStationsPreference _ksubwayStationsPreference = KsubwayStationsPreference();
+  final KsubwaySeoulstations ksubwaySeoulstations = KsubwaySeoulstations(stationList: []);
   final expApiEndpointTextEditingController = TextEditingController();
   final expApiPreference = ExpApiPreference();
   final themePreference = ThemePreference();
   String expApiEndpoint = "";
+  void fetchKsubwayStations() async {
+    KsubwaySeoulstations ksubwaySeoulstations = await _ksubwayStationsPreference.getSeoulstations();
+    if (ksubwaySeoulstations.stationList!.isEmpty) {
+      ksubwaySeoulstations = await KsubwayApi.fetchKsubwayStations(city: 'seoul');
+    }
+  }
 
   void restoreSettings() async {
-    KsubwaySeoulstations ksubwaySeoulstations = await KsubwayApi.fetchKsubwayStations();
-    for (var ksubwaySeoulstation in ksubwaySeoulstations.stationList!) {
-      print(ksubwaySeoulstation.statnNm);
-    }
     expApiEndpoint = await expApiPreference.getApiEndpoint();
     setState(() {});
   }
@@ -35,6 +40,7 @@ class _SettingScreenState extends State<SettingScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    fetchKsubwayStations();
     restoreSettings();
   }
 
