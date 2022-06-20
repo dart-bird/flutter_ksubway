@@ -16,9 +16,9 @@ class KsubwayApi {
     }
   }
 
-  static Future<dynamic> fetchKsubwayStations() async {
+  static Future<dynamic> fetchKsubwayStations({required String city}) async {
     final response = await http.get(
-      Uri.parse('https://raw.githubusercontent.com/dart-bird/korea-subway-stations/main/seoul_stations.json'),
+      Uri.parse('https://raw.githubusercontent.com/dart-bird/korea-subway-stations/main/${city}_stations.json'),
     );
     if (response.statusCode == 200) {
       final result = KsubwaySeoulstations.fromJson(json.decode(response.body));
