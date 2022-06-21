@@ -8,7 +8,8 @@ class KsubwayStationsPreference {
 
   setSeoulstations(KsubwaySeoulstations value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(seoulStations, value.toJson().toString());
+    final _v = const JsonEncoder.withIndent(null).convert(value.toJson());
+    prefs.setString(seoulStations, _v);
   }
 
   Future<KsubwaySeoulstations> getSeoulstations() async {
