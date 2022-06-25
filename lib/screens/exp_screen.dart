@@ -3,12 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ksubway/components/app_title.dart';
 import 'package:flutter_ksubway/components/subway_info.dart';
 import 'package:flutter_ksubway/components/subway_line_button.dart';
-import 'package:flutter_ksubway/main.dart';
 import 'package:flutter_ksubway/models/exp_ksubway_info.dart';
-import 'package:flutter_ksubway/preferences/theme_preference.dart';
 import 'package:flutter_ksubway/services/exp_ksubway_api.dart';
 import 'package:flutter_ksubway/style/subwayStyles.dart';
-import 'package:flutter_ksubway/style/textStyles.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
