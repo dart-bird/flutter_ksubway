@@ -34,6 +34,7 @@ class _MyAppState extends State<MyApp> {
       builder: (_, ThemeMode currentMode, __) {
         return MaterialApp(
           title: 'K-SUBWAY',
+          theme: lightTheme,
           darkTheme: darkTheme,
           themeMode: currentMode,
           onGenerateRoute: Application.router.generator,
