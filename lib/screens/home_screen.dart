@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,35 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: Column(
                   children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          '지하철 검색에는',
+                          style: textStyleTitle,
+                        ),
+                        SizedBox(
+                          height: 50,
+                          child: Row(
+                            children: [
+                              const Text(
+                                'K-SUBWAY',
+                                style: textStyleTitle,
+                              ),
+                              const SizedBox(width: 8),
+                              AnimatedTextKit(
+                                repeatForever: true,
+                                animatedTexts: [
+                                  RotateAnimatedText('오픈소스', textStyle: textStyleTitle),
+                                  RotateAnimatedText('좋아 😘', textStyle: textStyleTitle),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16),
                     TextField(
                       textAlign: TextAlign.center,
                       controller: _searchStationTextEditingController,
@@ -128,22 +158,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                 );
                               }),
                             ),
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(18)),
-                        color: MyApp.themeNotifier.value == ThemeMode.light ? Color(0xffe9e9e9) : Color(0xff454545),
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(18)),
+                        color: Colors.grey,
                       ),
                     ),
                   ],
                 ),
               ),
               CupertinoButton(
-                child: Text('Experiment Ksubway'),
+                child: const Text('실험 기능'),
                 onPressed: () {
                   Application.router.navigateTo(context, "/exp", transition: TransitionType.cupertino);
                 },
               ),
               CupertinoButton(
-                child: Text('Setting'),
+                child: const Text('설정'),
                 onPressed: () {
                   Application.router.navigateTo(context, "/setting", transition: TransitionType.cupertino);
                 },

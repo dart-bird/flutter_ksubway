@@ -21,6 +21,7 @@ dependencies:
   url_launcher: ^6.1.4
   fluro: ^2.0.3
   flutter_countdown_timer: ^4.1.0
+  animated_text_kit: ^4.2.2
 
 dev_dependencies:
   flutter_test:

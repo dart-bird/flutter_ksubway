@@ -11,7 +11,7 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
   ),
 );
 ThemeData lightTheme = ThemeData.light().copyWith(
-  scaffoldBackgroundColor: Color.fromARGB(255, 243, 243, 243),
+  scaffoldBackgroundColor: const Color.fromARGB(255, 243, 243, 243),
   iconTheme: const IconThemeData(color: Colors.black),
   appBarTheme: const AppBarTheme(
     iconTheme: IconThemeData(
