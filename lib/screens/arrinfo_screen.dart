@@ -125,10 +125,10 @@ class SubwayCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
               color: MyApp.themeNotifier.value == ThemeMode.light ? Colors.white : Color(0xff454545),
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
-                  color: Color.fromARGB(255, 22, 22, 22),
-                  offset: Offset(2.0, 2.0),
+                  color: MyApp.themeNotifier.value == ThemeMode.light ? Color.fromARGB(255, 129, 129, 129) : Color.fromARGB(255, 22, 22, 22),
+                  offset: const Offset(2.0, 2.0),
                   blurRadius: 4.0,
                 ),
               ],
@@ -220,10 +220,10 @@ class SubwayCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               color: MyApp.themeNotifier.value == ThemeMode.light ? Colors.white : Color(0xff454545),
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
-                  color: Color.fromARGB(255, 22, 22, 22),
-                  offset: Offset(2.0, 2.0),
+                  color: MyApp.themeNotifier.value == ThemeMode.light ? Color.fromARGB(255, 129, 129, 129) : Color.fromARGB(255, 22, 22, 22),
+                  offset: const Offset(2.0, 2.0),
                   blurRadius: 4.0,
                 ),
               ],
