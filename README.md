@@ -27,7 +27,7 @@ K-SUBWAY is a **Korea subway info Application**, using Flutter Framework.
 
 ## Getting Started
 
-***(API addresses are not show due to various controversies. Instead, the information provided by the API is replaced by the json file.)***
+***(API key needed. Instead, the information provided by the API is replaced by the json file.)***
 
 1. `git clone https://github.com/dart-bird/flutter_ksubway.git`  
 2. `flutter doctor` to check flutter version
@@ -49,5 +49,5 @@ K-SUBWAY is a **Korea subway info Application**, using Flutter Framework.
 ## Contribution
 * Your contribution is always open.
 * If you want to add a function, please make an issue using the issue template for bug information.
-* **IMPORTANT** : If you need an API address for the function, please submit the API form to the Json file according to the Json format and send me an email about API separately.  
-If you want to include api, you can configure it like `data/ksubwayApi/demo.json` and `lib/services/subwayApi.dart`
+* **IMPORTANT** : If you need an API address for the function, please contribute with the Json demo file.
+If you want to include api, you can configure it like `data/exp_ksubway_api/demo.json` and `lib/services/ksubway_api.dart`
