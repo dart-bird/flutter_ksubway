@@ -12,13 +12,13 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.5
   http: ^0.13.4
-  marquee: ^2.2.2
+  marquee: ^2.2.3
   shared_preferences: ^2.0.15
   font_awesome_flutter: ^10.1.0
   flutter_custom_license_page: ^0.0.3
-  url_launcher: ^6.1.2
+  url_launcher: ^6.1.4
   fluro: ^2.0.3
 
 dev_dependencies:
