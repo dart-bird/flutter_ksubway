@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter_ksubway/models/ksubway_arrinfo.dart';
 import 'package:flutter_ksubway/models/ksubway_seoulstations.dart';
 import 'package:http/http.dart' as http;
@@ -10,7 +11,15 @@ class KsubwayApi {
       Uri.parse('http://swopenapi.seoul.go.kr/api/subway/$_serviceKey/json/$realtimeType/$startPage/$endPage/$stationName'),
     );
     if ((response.statusCode == 200 || response.statusCode == 405) && response.body.isNotEmpty) {
-      return KsubwayArrinfo.fromJson(json.decode(response.body));
+      KsubwayArrinfo _result = KsubwayArrinfo.fromJson(json.decode(response.body));
+      if (json.decode(response.body)["code"] == "ERROR-337") {
+        log('Exceed request API Key (replaced by sample key)');
+        final _response = await http.get(
+          Uri.parse('http://swopenapi.seoul.go.kr/api/subway/sample/json/$realtimeType/0/5/$stationName'),
+        );
+        _result = KsubwayArrinfo.fromJson(json.decode(_response.body));
+      }
+      return _result;
     } else {
       throw Exception('Failed to load subway data');
     }
