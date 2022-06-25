@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 ThemeData darkTheme = ThemeData.dark().copyWith(
+  iconTheme: const IconThemeData(color: Colors.white),
   cupertinoOverrideTheme: const CupertinoThemeData(
     brightness: Brightness.dark,
     primaryColor: CupertinoColors.systemBlue,
@@ -10,7 +11,8 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
   ),
 );
 ThemeData lightTheme = ThemeData.light().copyWith(
-  backgroundColor: Colors.white60,
+  scaffoldBackgroundColor: Color.fromARGB(255, 243, 243, 243),
+  iconTheme: const IconThemeData(color: Colors.black),
   appBarTheme: const AppBarTheme(
     iconTheme: IconThemeData(
       color: Colors.black87,
