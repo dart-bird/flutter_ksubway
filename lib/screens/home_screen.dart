@@ -2,7 +2,11 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ksubway/config/application.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_ksubway/main.dart';
+import 'package:flutter_ksubway/models/ksubway_seoulstations.dart';
+import 'package:flutter_ksubway/preferences/ksubway_stations_preference.dart';
+import 'package:flutter_ksubway/services/ksubway_api.dart';
+import 'package:flutter_ksubway/style/textStyles.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,35 +16,140 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<StationList> stationSuggestions = [];
+  KsubwaySeoulstations ksubwaySeoulstations = KsubwaySeoulstations(stationList: []);
+  final List<String?> seoulstations = [];
+  final TextEditingController _searchStationTextEditingController = TextEditingController();
+  final KsubwayStationsPreference _ksubwayStationsPreference = KsubwayStationsPreference();
+  void fetchKsubwayStations() async {
+    ksubwaySeoulstations = await KsubwayApi.fetchKsubwayStations(city: 'seoul');
+    _ksubwayStationsPreference.setSeoulstations(ksubwaySeoulstations);
+    ksubwaySeoulstations = await _ksubwayStationsPreference.getSeoulstations();
+    for (var i = 0; i < ksubwaySeoulstations.stationList!.length; i++) {
+      if (ksubwaySeoulstations.stationList![i].statnNm == null || ksubwaySeoulstations.stationList![i].statnNm == "null") continue;
+      seoulstations.add(ksubwaySeoulstations.stationList![i].statnNm);
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchKsubwayStations();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            IconButton(
-              onPressed: () {
-                Application.router.navigateTo(
-                  context,
-                  "/arrinfo/서울",
-                  transition: TransitionType.materialFullScreenDialog,
-                );
-              },
-              icon: const FaIcon(FontAwesomeIcons.magnifyingGlass),
-            ),
-            CupertinoButton(
-              child: Text('Experiment Ksubway'),
-              onPressed: () {
-                Application.router.navigateTo(context, "/exp", transition: TransitionType.cupertino);
-              },
-            ),
-            CupertinoButton(
-              child: Text('Setting'),
-              onPressed: () {
-                Application.router.navigateTo(context, "/setting", transition: TransitionType.cupertino);
-              },
-            ),
-          ],
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Column(
+                  children: [
+                    TextField(
+                      textAlign: TextAlign.center,
+                      controller: _searchStationTextEditingController,
+                      keyboardType: TextInputType.text,
+                      onChanged: (v) async {
+                        stationSuggestions.clear();
+                        for (var i = 0; i < ksubwaySeoulstations.stationList!.length; i++) {
+                          String expValue = '';
+                          v.isEmpty ? expValue = '' : expValue = '?' + v;
+                          RegExp exp = RegExp(r'()' + expValue);
+                          if (exp.hasMatch(ksubwaySeoulstations.stationList![i].statnNm!) && v.isEmpty == false) {
+                            stationSuggestions.add(ksubwaySeoulstations.stationList![i]);
+                          }
+                        }
+                        setState(() {});
+                      },
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          icon: const Icon(
+                            Icons.arrow_forward_ios,
+                          ),
+                          onPressed: () {
+                            Application.router.navigateTo(
+                              context,
+                              "/arrinfo/${_searchStationTextEditingController.text}",
+                              transition: TransitionType.materialFullScreenDialog,
+                            );
+                          },
+                        ),
+                        hintText: '서울',
+                        hintStyle: textStyleSub1,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100),
+                          borderSide: const BorderSide(
+                            width: 0,
+                            style: BorderStyle.none,
+                          ),
+                        ),
+                        filled: true,
+                        contentPadding: const EdgeInsets.all(16),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      height: 200.0,
+                      child: stationSuggestions.isEmpty
+                          ? Center(
+                              child: Text(
+                              '검색 내용 없음',
+                              style: textStyleSub2.copyWith(color: Colors.black38),
+                            ))
+                          : ListView.builder(
+                              itemCount: stationSuggestions.length,
+                              itemBuilder: ((context, index) {
+                                return GestureDetector(
+                                  onTap: () => _searchStationTextEditingController.text = stationSuggestions[index].statnNm!,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 8),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          '#${stationSuggestions[index].subwayId!.toString()}',
+                                          style: textStyleSub1,
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          stationSuggestions[index].statnNm!,
+                                          style: textStyleSub1,
+                                          textAlign: TextAlign.end,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }),
+                            ),
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(18)),
+                        color: MyApp.themeNotifier.value == ThemeMode.light ? Color(0xffe9e9e9) : Color(0xff454545),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              CupertinoButton(
+                child: Text('Experiment Ksubway'),
+                onPressed: () {
+                  Application.router.navigateTo(context, "/exp", transition: TransitionType.cupertino);
+                },
+              ),
+              CupertinoButton(
+                child: Text('Setting'),
+                onPressed: () {
+                  Application.router.navigateTo(context, "/setting", transition: TransitionType.cupertino);
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
