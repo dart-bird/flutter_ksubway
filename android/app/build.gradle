@@ -66,12 +66,16 @@ android {
     }
     buildTypes {
         release {
+            ndk {
+                debugSymbolLevel 'SYMBOL_TABLE'
+            }
             signingConfig signingConfigs.release
             minifyEnabled true
             useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    ndkVersion "24.0.8215888"
 }
 
 flutter {
