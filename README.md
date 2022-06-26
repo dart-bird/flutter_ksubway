@@ -33,7 +33,7 @@ K-SUBWAY is a **Korea subway info Application**, using Flutter Framework.
 2. `flutter doctor` to check flutter version
 3. `pub get` to solve dependencies  
 3-1. `flutter run` (with demo)  
-3-2. `flutter run --dart-define="subwayAPI={API}"` (with real data)
+3-2. `flutter run --dart-define="swopenapi_seoul_subway_key={API}"` (with real data)
 
 
 ## Dependencies
