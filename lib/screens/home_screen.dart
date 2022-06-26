@@ -102,14 +102,16 @@ class _HomeScreenState extends State<HomeScreen> {
                             Icons.arrow_forward_ios,
                           ),
                           onPressed: () {
-                            Application.router.navigateTo(
-                              context,
-                              "/arrinfo/${_searchStationTextEditingController.text}",
-                              transition: TransitionType.materialFullScreenDialog,
-                            );
+                            if (_searchStationTextEditingController.text.isNotEmpty) {
+                              Application.router.navigateTo(
+                                context,
+                                "/arrinfo/${_searchStationTextEditingController.text}",
+                                transition: TransitionType.materialFullScreenDialog,
+                              );
+                            }
                           },
                         ),
-                        hintText: '서울',
+                        hintText: '입력해주세요',
                         hintStyle: textStyleSub1,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(100),
