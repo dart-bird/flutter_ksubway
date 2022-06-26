@@ -6,8 +6,6 @@ import 'package:flutter_ksubway/components/subway_line_button.dart';
 import 'package:flutter_ksubway/models/exp_ksubway_info.dart';
 import 'package:flutter_ksubway/services/exp_ksubway_api.dart';
 import 'package:flutter_ksubway/style/subwayStyles.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ExpScreen extends StatefulWidget {
   const ExpScreen({Key? key}) : super(key: key);
@@ -42,15 +40,6 @@ class _ExpScreenState extends State<ExpScreen> with TickerProviderStateMixin {
     setState(() {});
   }
 
-  Future<void> _launchInBrowser(Uri url) async {
-    if (!await launchUrl(
-      url,
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw 'Could not launch $url';
-    }
-  }
-
   @override
   void initState() {
     // TODO: implement initState
@@ -78,19 +67,8 @@ class _ExpScreenState extends State<ExpScreen> with TickerProviderStateMixin {
               padding: const EdgeInsets.only(top: 8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    padding: EdgeInsets.zero,
-                    onPressed: () {
-                      _launchInBrowser(Uri(
-                        scheme: 'https',
-                        host: 'github.com',
-                        path: '/dart-bird/flutter_ksubway',
-                      ));
-                    },
-                    icon: const FaIcon(FontAwesomeIcons.github),
-                  ),
-                  const AppTitle(title: 'K - SUBWAY Fighter'),
+                children: const [
+                  AppTitle(title: 'K - SUBWAY Fighter'),
                 ],
               ),
             ),

@@ -8,6 +8,7 @@ import 'package:flutter_ksubway/preferences/theme_preference.dart';
 import 'package:flutter_ksubway/services/ksubway_api.dart';
 import 'package:flutter_ksubway/style/textStyles.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -23,6 +24,15 @@ class _SettingScreenState extends State<SettingScreen> {
   final expApiPreference = ExpApiPreference();
   final themePreference = ThemePreference();
   String expApiEndpoint = "";
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw 'Could not launch $url';
+    }
+  }
+
   void fetchKsubwayStations() async {
     ksubwaySeoulstations = await KsubwayApi.fetchKsubwayStations(city: 'seoul');
     _ksubwayStationsPreference.setSeoulstations(ksubwaySeoulstations);
@@ -83,20 +93,18 @@ class _SettingScreenState extends State<SettingScreen> {
                 }),
               ),
             ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    '서울 역정보 업데이트',
-                    style: textStyleSub1,
-                  ),
-                  CupertinoButton(
-                    child: const FaIcon(FontAwesomeIcons.arrowsRotate),
-                    onPressed: () => fetchKsubwayStations(),
-                  )
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  '서울 역정보 업데이트',
+                  style: textStyleSub1,
+                ),
+                CupertinoButton(
+                  child: const FaIcon(FontAwesomeIcons.arrowsRotate),
+                  onPressed: () => fetchKsubwayStations(),
+                )
+              ],
             ),
             Center(
               child: IconButton(
@@ -115,10 +123,21 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
             const Spacer(),
             Container(
-              margin: const EdgeInsets.only(bottom: 8),
-              height: 80,
+              margin: const EdgeInsets.only(bottom: 32),
+              height: 120,
               child: Column(
                 children: [
+                  IconButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
+                      _launchInBrowser(Uri(
+                        scheme: 'https',
+                        host: 'github.com',
+                        path: '/dart-bird/flutter_ksubway',
+                      ));
+                    },
+                    icon: const FaIcon(FontAwesomeIcons.github),
+                  ),
                   const Text(
                     'Created by dart-bird',
                     style: textStyleFooter,
