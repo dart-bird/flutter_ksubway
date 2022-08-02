@@ -21039,9 +21039,9 @@ if(r==null)r=1
 return new A.ww(s,r,A.Hd(a),A.ej(a),null,A.dm())},
 GX(a,b,c,d){var s=0,r=A.U(t.D0),q,p,o,n,m,l,k,j
 var $async$GX=A.V(function(e,f){if(e===1)return A.R(f,r)
-while(true)switch(s){case 0:k="http://swopenapi.seoul.go.kr/api/subway/sample/json/"+b
+while(true)switch(s){case 0:k="https://thingproxy.freeboard.io/fetch/"+("http://swopenapi.seoul.go.kr/api/subway/sample/json/"+b+"/"+c+"/"+a+"/"+d)
 s=3
-return A.Q(A.aju(A.ja(k+"/"+c+"/"+a+"/"+d,0,null)),$async$GX)
+return A.Q(A.aju(A.ja(k,0,null)),$async$GX)
 case 3:j=f
 s=j.b!==200&&A.Du(A.Dk(j.e).c.a.h(0,"charset")).bM(0,j.w).length!==0?4:6
 break
@@ -21052,7 +21052,7 @@ m=A.ams(B.ad.bM(0,o.bM(0,n)))
 s=J.f(J.aJ(B.ad.bM(0,A.Du(A.Dk(p).c.a.h(0,"charset")).bM(0,n)),"code"),"ERROR-337")?7:8
 break
 case 7:s=9
-return A.Q(A.aju(A.ja(k+"/0/5/"+d,0,null)),$async$GX)
+return A.Q(A.aju(A.ja(k,0,null)),$async$GX)
 case 9:l=f
 m=A.ams(B.ad.bM(0,A.Du(A.Dk(l.e).c.a.h(0,"charset")).bM(0,l.w)))
 case 8:q=m
