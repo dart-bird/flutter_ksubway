@@ -61676,7 +61676,7 @@ case 6:q=n.ai4(m.aL(l.bM(0,c),a))
 s=1
 break
 case 5:s=7
-return A.V(A.aA1(A.iI(o+"?lineNumCd="+a,0,null)),$async$kE)
+return A.V(A.aA1(A.iI("https://cors-dartbird.herokuapp.com/"+o+"?lineNumCd="+a,0,null)),$async$kE)
 case 7:p=c
 if(p.b===200){q=A.ai4(B.ag.bM(0,A.BU(A.BM(p.e).c.a.h(0,"charset")).bM(0,p.w)))
 s=1
