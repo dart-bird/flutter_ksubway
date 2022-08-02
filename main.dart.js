@@ -19280,9 +19280,9 @@ if(r==null)r=1
 return new A.vh(s,r,A.Fw(a),A.dX(a),null,A.d3())},
 Ff(a,b,c,d){var s=0,r=A.T(t.D0),q,p,o,n,m,l,k,j
 var $async$Ff=A.U(function(e,f){if(e===1)return A.Q(f,r)
-while(true)switch(s){case 0:k="https://thingproxy.freeboard.io/fetch/"+("http://swopenapi.seoul.go.kr/api/subway/sample/json/"+b+"/"+c+"/"+a+"/"+d)
+while(true)switch(s){case 0:k="https://cors-dartbird.herokuapp.com/"+("http://swopenapi.seoul.go.kr/api/subway/sample/json/"+b+"/"+c+"/"+a+"/"+d)
 j=t.N
-j=A.aM(["Access-Control-Allow-Origin","*","Access-Control-Allow-Credentials","true","Access-Control-Allow-Headers","Origin, Content-Type, X-Amz-Date, Authorization, X-Api-Key, X-Amz-Security-Token, locale","Access-Control-Allow-Methods","GET, POST"],j,j)
+j=A.aM(["Access-Control-Allow-Origin","*","Access-Control-Allow-Credentials","true"],j,j)
 s=3
 return A.V(A.afM(A.iI(k,0,null),j),$async$Ff)
 case 3:p=f
