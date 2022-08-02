@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ksubway/config/routes.dart';
 import 'package:flutter_ksubway/preferences/theme_preference.dart';
 import 'package:flutter_ksubway/style/theme_styles.dart';
+import 'package:url_strategy/url_strategy.dart';
 import 'config/application.dart';
 
 void main() async {
@@ -10,7 +11,7 @@ void main() async {
   final themePreference = ThemePreference();
   bool isDarkTheme = await themePreference.getTheme();
   MyApp.themeNotifier.value = isDarkTheme == true ? ThemeMode.dark : ThemeMode.light;
-
+  setPathUrlStrategy();
   runApp(const MyApp());
 }
 
