@@ -7,13 +7,14 @@ import 'dart:convert';
 class ExpksubwayApi {
   Future<ExpksubwayInfo> fetchExpksubwayInfo(String lineNumCd) async {
     final expApiPreference = ExpApiPreference();
+    String _proxyUri = const String.fromEnvironment("proxy");
     String _uri = await expApiPreference.getApiEndpoint();
     if (_uri == "demo") {
       String data = await rootBundle.loadString('data/exp_ksubway_api/demo.json');
       return ExpksubwayInfo.fromJson(json.decode(data)[lineNumCd]);
     }
     final response = await http.post(
-      Uri.parse(_uri + "?lineNumCd=" + lineNumCd),
+      Uri.parse(_proxyUri + _uri + "?lineNumCd=" + lineNumCd),
     );
     if (response.statusCode == 200) {
       return ExpksubwayInfo.fromJson(json.decode(response.body));

@@ -7,15 +7,24 @@ import 'dart:convert';
 class KsubwayApi {
   static Future<KsubwayArrinfo> fetchKsubwayArrinfo({required String startPage, required String endPage, required String realtimeType, required String stationName}) async {
     String _serviceKey = const String.fromEnvironment("swopenapi_seoul_subway_key");
+    String _proxyUri = const String.fromEnvironment("proxy");
+    String _apiEndpoint = "";
+    if (_serviceKey.isEmpty || _serviceKey == 'demo' || _serviceKey == "sample") {
+      _apiEndpoint = _proxyUri + 'http://swopenapi.seoul.go.kr/api/subway/sample/json/$realtimeType/0/5/$stationName';
+    } else {
+      _apiEndpoint = _proxyUri + 'http://swopenapi.seoul.go.kr/api/subway/$_serviceKey/json/$realtimeType/$startPage/$endPage/$stationName';
+    }
+
     final response = await http.get(
-      Uri.parse('http://swopenapi.seoul.go.kr/api/subway/$_serviceKey/json/$realtimeType/$startPage/$endPage/$stationName'),
+      Uri.parse(_apiEndpoint),
     );
-    if ((response.statusCode == 200 || response.statusCode == 405) && response.body.isNotEmpty) {
+
+    if (response.statusCode == 200) {
       KsubwayArrinfo _result = KsubwayArrinfo.fromJson(json.decode(response.body));
       if (json.decode(response.body)["code"] == "ERROR-337") {
         log('Exceed request API Key (replaced by sample key)');
         final _response = await http.get(
-          Uri.parse('http://swopenapi.seoul.go.kr/api/subway/sample/json/$realtimeType/0/5/$stationName'),
+          Uri.parse(_apiEndpoint),
         );
         _result = KsubwayArrinfo.fromJson(json.decode(_response.body));
       }
