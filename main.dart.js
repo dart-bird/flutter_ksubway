@@ -19280,7 +19280,7 @@ if(r==null)r=1
 return new A.vh(s,r,A.Fw(a),A.dX(a),null,A.d3())},
 Ff(a,b,c,d){var s=0,r=A.T(t.D0),q,p,o,n,m,l,k,j
 var $async$Ff=A.U(function(e,f){if(e===1)return A.Q(f,r)
-while(true)switch(s){case 0:k="https://cors-dartbird.herokuapp.com/"+("http://swopenapi.seoul.go.kr/api/subway/sample/json/"+b+"/"+c+"/"+a+"/"+d)
+while(true)switch(s){case 0:k="https://cors-dartbird.herokuapp.com/"+("http://swopenapi.seoul.go.kr/api/subway/sample/json/"+b+"/0/5/"+d)
 s=3
 return A.V(A.afM(A.iI(k,0,null)),$async$Ff)
 case 3:j=f
