@@ -21041,21 +21041,20 @@ GX(a,b,c,d){var s=0,r=A.U(t.D0),q,p,o,n,m,l,k
 var $async$GX=A.V(function(e,f){if(e===1)return A.R(f,r)
 while(true)switch(s){case 0:s=3
 return A.Q(A.aju(A.ja("http://swopenapi.seoul.go.kr/api/subway//json/"+b+"/"+c+"/"+a+"/"+d,0,null)),$async$GX)
-case 3:l=f
-k=l.b
-s=(k===200||k===405)&&A.Du(A.Dk(l.e).c.a.h(0,"charset")).bM(0,l.w).length!==0?4:6
+case 3:k=f
+s=k.b!==200&&A.Du(A.Dk(k.e).c.a.h(0,"charset")).bM(0,k.w).length!==0?4:6
 break
-case 4:k=l.e
-p=A.Du(A.Dk(k).c.a.h(0,"charset"))
-o=l.w
-n=A.ams(B.ad.bM(0,p.bM(0,o)))
-s=J.f(J.aJ(B.ad.bM(0,A.Du(A.Dk(k).c.a.h(0,"charset")).bM(0,o)),"code"),"ERROR-337")?7:8
+case 4:p=k.e
+o=A.Du(A.Dk(p).c.a.h(0,"charset"))
+n=k.w
+m=A.ams(B.ad.bM(0,o.bM(0,n)))
+s=J.f(J.aJ(B.ad.bM(0,A.Du(A.Dk(p).c.a.h(0,"charset")).bM(0,n)),"code"),"ERROR-337")?7:8
 break
 case 7:s=9
 return A.Q(A.aju(A.ja("http://swopenapi.seoul.go.kr/api/subway/sample/json/"+b+"/0/5/"+d,0,null)),$async$GX)
-case 9:m=f
-n=A.ams(B.ad.bM(0,A.Du(A.Dk(m.e).c.a.h(0,"charset")).bM(0,m.w)))
-case 8:q=n
+case 9:l=f
+m=A.ams(B.ad.bM(0,A.Du(A.Dk(l.e).c.a.h(0,"charset")).bM(0,l.w)))
+case 8:q=m
 s=1
 break
 s=5
