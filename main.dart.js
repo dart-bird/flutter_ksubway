@@ -21037,21 +21037,22 @@ r=A.f9(a)
 r=r==null?null:r.b
 if(r==null)r=1
 return new A.ww(s,r,A.Hd(a),A.ej(a),null,A.dm())},
-GX(a,b,c,d){var s=0,r=A.U(t.D0),q,p,o,n,m,l,k
+GX(a,b,c,d){var s=0,r=A.U(t.D0),q,p,o,n,m,l,k,j
 var $async$GX=A.V(function(e,f){if(e===1)return A.R(f,r)
-while(true)switch(s){case 0:s=3
-return A.Q(A.aju(A.ja("http://swopenapi.seoul.go.kr/api/subway//json/"+b+"/"+c+"/"+a+"/"+d,0,null)),$async$GX)
-case 3:k=f
-s=k.b!==200&&A.Du(A.Dk(k.e).c.a.h(0,"charset")).bM(0,k.w).length!==0?4:6
+while(true)switch(s){case 0:k="http://swopenapi.seoul.go.kr/api/subway/sample/json/"+b
+s=3
+return A.Q(A.aju(A.ja(k+"/"+c+"/"+a+"/"+d,0,null)),$async$GX)
+case 3:j=f
+s=j.b!==200&&A.Du(A.Dk(j.e).c.a.h(0,"charset")).bM(0,j.w).length!==0?4:6
 break
-case 4:p=k.e
+case 4:p=j.e
 o=A.Du(A.Dk(p).c.a.h(0,"charset"))
-n=k.w
+n=j.w
 m=A.ams(B.ad.bM(0,o.bM(0,n)))
 s=J.f(J.aJ(B.ad.bM(0,A.Du(A.Dk(p).c.a.h(0,"charset")).bM(0,n)),"code"),"ERROR-337")?7:8
 break
 case 7:s=9
-return A.Q(A.aju(A.ja("http://swopenapi.seoul.go.kr/api/subway/sample/json/"+b+"/0/5/"+d,0,null)),$async$GX)
+return A.Q(A.aju(A.ja(k+"/0/5/"+d,0,null)),$async$GX)
 case 9:l=f
 m=A.ams(B.ad.bM(0,A.Du(A.Dk(l.e).c.a.h(0,"charset")).bM(0,l.w)))
 case 8:q=m
