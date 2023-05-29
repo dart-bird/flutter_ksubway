@@ -1,8 +1,9 @@
 class ExpksubwayInfo {
   bool? isValid;
   List<TtcVOList>? ttcVOList;
+  bool? isDemo;
 
-  ExpksubwayInfo({this.isValid, this.ttcVOList});
+  ExpksubwayInfo({this.isValid, this.ttcVOList, this.isDemo});
 
   ExpksubwayInfo.fromJson(Map<String, dynamic> json) {
     isValid = json['isValid'];

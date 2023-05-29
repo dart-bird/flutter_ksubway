@@ -23,6 +23,18 @@ class SubwayInfo extends StatelessWidget {
     return Expanded(
       child: AnimatedContainer(
         margin: const EdgeInsets.fromLTRB(8, 0, 8, 12),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          color: lineNumColors[lineNumPageIndex],
+          boxShadow: [
+            BoxShadow(
+              color: MyApp.themeNotifier.value == ThemeMode.light ? Colors.grey : const Color.fromARGB(255, 34, 34, 34),
+              offset: const Offset(5.0, 8.0),
+              blurRadius: 24.0,
+            ),
+          ],
+        ),
+        duration: const Duration(milliseconds: 220),
         // 지하철 정보 뜨는 곳
         child: ttcVOList.isEmpty
             ? const Center(
@@ -67,12 +79,25 @@ class SubwayInfo extends StatelessWidget {
                   return AnimatedContainer(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     margin: ttcVOList.length - 1 != index ? const EdgeInsets.fromLTRB(16, 16, 16, 0) : const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                    duration: const Duration(milliseconds: 220),
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      color: MyApp.themeNotifier.value == ThemeMode.light ? Colors.white : const Color.fromARGB(255, 52, 86, 97),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 32, 32, 32),
+                          offset: Offset(5.0, 4.0),
+                          blurRadius: 12.0,
+                        ),
+                      ],
+                    ),
                     child: Row(
                       children: [
                         Column(
                           children: [
                             Container(
-                              width: 90, // 장평이 안맞아서 가로 길이 고정
+                              width: 90,
+                              color: lineNumColors[lineNumPageIndex], // 장평이 안맞아서 가로 길이 고정
                               child: Center(
                                 child: Text(
                                   subwayNum,
@@ -80,10 +105,10 @@ class SubwayInfo extends StatelessWidget {
                                   textAlign: TextAlign.center,
                                 ),
                               ),
-                              color: lineNumColors[lineNumPageIndex],
                             ),
                             Container(
-                              width: 90, // 장평이 안맞아서 가로 길이 고정
+                              width: 90,
+                              color: lineNumColors[lineNumPageIndex].withAlpha(100), // 장평이 안맞아서 가로 길이 고정
                               child: Center(
                                 child: Text(
                                   direction,
@@ -91,7 +116,6 @@ class SubwayInfo extends StatelessWidget {
                                   textAlign: TextAlign.center,
                                 ),
                               ),
-                              color: lineNumColors[lineNumPageIndex].withAlpha(100),
                             ),
                           ],
                         ),
@@ -113,6 +137,7 @@ class SubwayInfo extends StatelessWidget {
                                   children: [
                                     Expanded(
                                       child: Container(
+                                        color: lineNumColors[lineNumPageIndex].withAlpha(100),
                                         child: Center(
                                           child: currStation.length > 4
                                               ? Marquee(
@@ -126,11 +151,11 @@ class SubwayInfo extends StatelessWidget {
                                                   style: textStyleSub1,
                                                 ),
                                         ),
-                                        color: lineNumColors[lineNumPageIndex].withAlpha(100),
                                       ),
                                     ),
                                     Expanded(
                                       child: Container(
+                                        color: statusColor,
                                         child: Center(
                                           child: Text(
                                             status,
@@ -138,7 +163,6 @@ class SubwayInfo extends StatelessWidget {
                                             textAlign: TextAlign.center,
                                           ),
                                         ),
-                                        color: statusColor,
                                       ),
                                     ),
                                   ],
@@ -149,33 +173,9 @@ class SubwayInfo extends StatelessWidget {
                         ),
                       ],
                     ),
-                    duration: const Duration(milliseconds: 220),
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      color: MyApp.themeNotifier.value == ThemeMode.light ? Colors.white : Color.fromARGB(255, 52, 86, 97),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromARGB(255, 32, 32, 32),
-                          offset: const Offset(5.0, 4.0),
-                          blurRadius: 12.0,
-                        ),
-                      ],
-                    ),
                   );
                 }),
               ),
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          color: lineNumColors[lineNumPageIndex],
-          boxShadow: [
-            BoxShadow(
-              color: MyApp.themeNotifier.value == ThemeMode.light ? Colors.grey : Color.fromARGB(255, 34, 34, 34),
-              offset: const Offset(5.0, 8.0),
-              blurRadius: 24.0,
-            ),
-          ],
-        ),
-        duration: const Duration(milliseconds: 220),
       ),
     );
   }

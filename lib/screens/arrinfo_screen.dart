@@ -6,6 +6,7 @@ import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_ksubway/main.dart';
 import 'package:flutter_ksubway/models/ksubway_arrinfo.dart';
 import 'package:flutter_ksubway/services/ksubway_api.dart';
+import 'package:flutter_ksubway/style/subwayStyles.dart';
 import 'package:flutter_ksubway/style/textStyles.dart';
 
 class ArrInfoScreen extends StatefulWidget {
@@ -66,11 +67,12 @@ class _ArrInfoScreenState extends State<ArrInfoScreen> {
       appBar: AppBar(
         title: Text(widget.stationName, style: textStyleTitle),
         centerTitle: true,
+        shadowColor: Colors.transparent,
       ),
       body: SafeArea(
         child: Column(
           children: [
-            const SizedBox(height: 16),
+            const SizedBox(height: 32),
             Expanded(
               child: Row(
                 children: [
@@ -114,6 +116,50 @@ class SubwayCard extends StatelessWidget {
         children: [
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 32.0),
+            // color: Colors.white.withAlpha(100),
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+              color: MyApp.themeNotifier.value == ThemeMode.light ? Colors.white : const Color(0xff454545),
+              boxShadow: const [
+                BoxShadow(
+                  offset: Offset(3.2, 0.0),
+                  blurRadius: 0.5,
+                  spreadRadius: -27.0,
+                  color: Color.fromRGBO(0, 0, 0, 0.017),
+                ),
+                BoxShadow(
+                  offset: Offset(7.4, 0.1),
+                  blurRadius: 4.5,
+                  spreadRadius: -27.0,
+                  color: Color.fromRGBO(0, 0, 0, 0.024),
+                ),
+                BoxShadow(
+                  offset: Offset(13.1, 0.2),
+                  blurRadius: 13.9,
+                  spreadRadius: -27.0,
+                  color: Color.fromRGBO(0, 0, 0, 0.03),
+                ),
+                BoxShadow(
+                  offset: Offset(22.2, 0.3),
+                  blurRadius: 33.4,
+                  spreadRadius: -27.0,
+                  color: Color.fromRGBO(0, 0, 0, 0.036),
+                ),
+                BoxShadow(
+                  offset: Offset(38.8, 0.5),
+                  blurRadius: 75.7,
+                  spreadRadius: -27.0,
+                  color: Color.fromRGBO(0, 0, 0, 0.043),
+                ),
+                BoxShadow(
+                  offset: Offset(85.0, 1.0),
+                  blurRadius: 202.0,
+                  spreadRadius: -27.0,
+                  color: Color.fromRGBO(0, 0, 0, 0.06),
+                ),
+              ],
+            ),
+
             child: Center(
               child: Text(
                 realtimeArrivalList[index].trainLineNm!.replaceAll(' (급행)', ''),
@@ -121,38 +167,37 @@ class SubwayCard extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            // color: Colors.white.withAlpha(100),
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-              color: MyApp.themeNotifier.value == ThemeMode.light ? Colors.white : Color(0xff454545),
-              boxShadow: [
-                BoxShadow(
-                  color: MyApp.themeNotifier.value == ThemeMode.light ? Color.fromARGB(255, 129, 129, 129) : Color.fromARGB(255, 22, 22, 22),
-                  offset: const Offset(2.0, 2.0),
-                  blurRadius: 4.0,
-                ),
-              ],
-            ),
+          ),
+          Container(
+            color: lineIdColors[int.tryParse(realtimeArrivalList[index].subwayId!)],
+            margin: const EdgeInsets.symmetric(horizontal: 32),
+            height: 1,
           ),
           AnimatedContainer(
             padding: const EdgeInsets.symmetric(vertical: 16),
+            duration: const Duration(milliseconds: 220),
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              color: MyApp.themeNotifier.value == ThemeMode.light ? Colors.white : const Color(0xff454545),
+            ),
             child: Row(
               children: [
                 Column(
                   children: [
                     Container(
-                      width: 90, // 장평이 안맞아서 가로 길이 고정
+                      width: 90,
+                      color: lineIdColors[int.tryParse(realtimeArrivalList[index].subwayId!)], // 장평이 안맞아서 가로 길이 고정
                       child: Center(
                         child: Text(
-                          realtimeArrivalList[index].subwayId!,
+                          lineIdTexts[int.tryParse(realtimeArrivalList[index].subwayId!)]!,
                           style: textStyleSub1,
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      color: Color.fromARGB(255, 129, 112, 112),
                     ),
                     Container(
-                      width: 90, // 장평이 안맞아서 가로 길이 고정
+                      width: 90,
+                      color: lineIdColors[int.tryParse(realtimeArrivalList[index].subwayId!)]!.withAlpha(100), // 장평이 안맞아서 가로 길이 고정
                       child: Center(
                         child: Text(
                           realtimeArrivalList[index].btrainSttus! == "null" ? "일반" : realtimeArrivalList[index].btrainSttus!,
@@ -160,7 +205,6 @@ class SubwayCard extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      color: Color.fromARGB(255, 94, 34, 34).withAlpha(100),
                     ),
                   ],
                 ),
@@ -213,18 +257,6 @@ class SubwayCard extends StatelessWidget {
                       );
                     },
                   ),
-                ),
-              ],
-            ),
-            duration: const Duration(milliseconds: 220),
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              color: MyApp.themeNotifier.value == ThemeMode.light ? Colors.white : Color(0xff454545),
-              boxShadow: [
-                BoxShadow(
-                  color: MyApp.themeNotifier.value == ThemeMode.light ? Color.fromARGB(255, 129, 129, 129) : Color.fromARGB(255, 22, 22, 22),
-                  offset: const Offset(2.0, 2.0),
-                  blurRadius: 4.0,
                 ),
               ],
             ),

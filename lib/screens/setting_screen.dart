@@ -5,9 +5,12 @@ import 'package:flutter_ksubway/models/ksubway_seoulstations.dart';
 import 'package:flutter_ksubway/preferences/exp_api_preference.dart';
 import 'package:flutter_ksubway/preferences/ksubway_stations_preference.dart';
 import 'package:flutter_ksubway/preferences/theme_preference.dart';
+import 'package:flutter_ksubway/providers/exp_ksubway_provider.dart';
+import 'package:flutter_ksubway/providers/kusbway_provider.dart';
 import 'package:flutter_ksubway/services/ksubway_api.dart';
 import 'package:flutter_ksubway/style/textStyles.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -19,9 +22,7 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
   KsubwaySeoulstations ksubwaySeoulstations = KsubwaySeoulstations(stationList: []);
-  final KsubwayStationsPreference _ksubwayStationsPreference = KsubwayStationsPreference();
-  final expApiEndpointTextEditingController = TextEditingController();
-  final expApiPreference = ExpApiPreference();
+
   final themePreference = ThemePreference();
   String expApiEndpoint = "";
   Future<void> _launchInBrowser(Uri url) async {
@@ -33,24 +34,6 @@ class _SettingScreenState extends State<SettingScreen> {
     }
   }
 
-  void fetchKsubwayStations() async {
-    ksubwaySeoulstations = await KsubwayApi.fetchKsubwayStations(city: 'seoul');
-    _ksubwayStationsPreference.setSeoulstations(ksubwaySeoulstations);
-  }
-
-  void restoreSettings() async {
-    expApiEndpoint = await expApiPreference.getApiEndpoint();
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    fetchKsubwayStations();
-    restoreSettings();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,38 +43,32 @@ class _SettingScreenState extends State<SettingScreen> {
             const CupertinoNavigationBar(
               previousPageTitle: "back",
             ),
-            Form(
-              autovalidateMode: AutovalidateMode.always,
-              onChanged: () {
-                Form.of(primaryFocus!.context!)?.save();
-              },
-              child: CupertinoFormSection.insetGrouped(
-                header: const Text(
-                  'Experimental Section',
-                  style: textStyleSub2,
-                ),
-                children: List<Widget>.generate(1, (int index) {
-                  return CupertinoTextFormFieldRow(
-                    controller: expApiEndpointTextEditingController..text = expApiEndpoint,
-                    prefix: const Text(
-                      'API Endpoint',
-                      style: textStyleTextFormFieldTitle,
-                    ),
-                    placeholder: 'Enter text',
-                    placeholderStyle: textStyleTextFormFieldContent,
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a value';
-                      }
-                      if (!Uri.parse(value).isAbsolute) return 'Please enter valid api endpoint';
-                    },
-                    onSaved: (value) {
-                      expApiPreference.setApiEndpoint(value ?? "");
-                    },
-                    onEditingComplete: () => expApiEndpointTextEditingController.clear(),
-                  );
-                }),
+            CupertinoFormSection.insetGrouped(
+              header: const Text(
+                'Experimental Section',
+                style: textStyleSub2,
               ),
+              children: List<Widget>.generate(1, (int index) {
+                return CupertinoTextFormFieldRow(
+                  initialValue: Provider.of<ExpKsubwayProvider>(context).expksubwayApiUrl,
+                  prefix: const Text(
+                    'API Endpoint',
+                    style: textStyleTextFormFieldTitle,
+                  ),
+                  placeholder: 'Enter endpoint',
+                  placeholderStyle: textStyleTextFormFieldContent,
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a value';
+                    }
+                    if (!Uri.parse(value).isAbsolute) return 'Please enter valid api endpoint';
+                  },
+                  onChanged: (value) {
+                    Provider.of<ExpKsubwayProvider>(context, listen: false).expksubwayApiUrl = value;
+                    Provider.of<ExpKsubwayProvider>(context, listen: false).saveExpksubwayApiEndpoint();
+                  },
+                );
+              }),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -102,7 +79,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 CupertinoButton(
                   child: const FaIcon(FontAwesomeIcons.arrowsRotate),
-                  onPressed: () => fetchKsubwayStations(),
+                  onPressed: () => Provider.of<KsubwayProvider>(context, listen: false).updateKsubwayStations(),
                 )
               ],
             ),

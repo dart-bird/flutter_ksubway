@@ -7,15 +7,15 @@ class KsubwaySeoulstations {
     if (json['stationList'] != null) {
       stationList = <StationList>[];
       json['stationList'].forEach((v) {
-        stationList!.add(new StationList.fromJson(v));
+        stationList!.add(StationList.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.stationList != null) {
-      data['stationList'] = this.stationList!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (stationList != null) {
+      data['stationList'] = stationList!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -35,10 +35,10 @@ class StationList {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['SUBWAY_ID'] = this.subwayId;
-    data['STATN_ID'] = this.statnId;
-    data['STATN_NM'] = this.statnNm;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['SUBWAY_ID'] = subwayId;
+    data['STATN_ID'] = statnId;
+    data['STATN_NM'] = statnNm;
     return data;
   }
 }
